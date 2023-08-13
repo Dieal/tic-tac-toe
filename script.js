@@ -1,20 +1,20 @@
 // Constructors
-const Player = (markSign) => {
+const Player = (playerName, markSign) => {
 
+    const getPlayerName = () => playerName;
     const getMarkSign = () => markSign;
-    const markCell = () => {
-        //
-    };
 
-    return {getMarkSign};
+    return {getPlayerName, getMarkSign};
 }
 
 const game = (() => {
 
     let playerOne;
     let playerTwo;
+    let selectedPlayer;
+
     const gameboard = (() => {
-        let board = ['X', 'O', 'X', 'X'];
+        let board = [];
 
         const getBoard = () => board;
         const resetBoard = () => board = [];
@@ -24,20 +24,26 @@ const game = (() => {
                 cells[i].textContent = board[i];
             } 
         };
+        const markCell = (index, player) => {
+            if (board[index] !== null && board[index] !== undefined) return;
+            board[index] = player.getMarkSign().toUpperCase();
+        }
 
-        return {getBoard, resetBoard, updateBoard};
+        return {getBoard, resetBoard, updateBoard, markCell};
     })();
 
     // DOM Board Cells
     const cells = document.querySelectorAll(".cell");
-    cells.forEach(e => e.onclick = () => {
-        // DOM interaction
+    cells.forEach(cell => cell.onclick = e => {
+        gameboard.markCell(e.currentTarget.dataset.index, selectedPlayer);
+        gameboard.updateBoard();
     });
         
     const startGame = () => {
-        playerOne = Player('X');
-        playerTwo = Player('O');
+        playerOne = Player("Guest 1", 'X');
+        playerTwo = Player("Guest 2", 'O');
         gameboard.resetBoard();
+        selectedPlayer = playerOne;
     };
 
     return {startGame};
