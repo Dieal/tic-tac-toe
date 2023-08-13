@@ -30,8 +30,8 @@ const game = (() => {
             } 
         };
         const isCellEmpty = index => board[index] === null || board[index] === undefined;
-        const markCell = (index, player) => {
-            this.setCell(index, player.getMarkSign.toUpperCase());
+        const markCell = function (index, player) {
+            this.setCell(index, player.getMarkSign().toUpperCase());
         }
 
         return {getBoard, getCell, setCell, isCellEmpty, resetBoard, updateBoard, markCell};
