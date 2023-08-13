@@ -16,7 +16,12 @@ const game = (() => {
     const gameboard = (() => {
         let board = [];
 
-        const getBoard = () => board;
+        const getBoard = () => [...board];
+        const getCell = index => board[index];
+        const setCell = (index, value) => {
+            if (board[index] !== null && board[index] !== undefined) return;
+            board[index] = value;
+        }
         const resetBoard = () => board = [];
         const updateBoard = () => {
             for (let i = 0; i < board.length; i++) {
@@ -24,12 +29,12 @@ const game = (() => {
                 cells[i].textContent = board[i];
             } 
         };
+        const isCellEmpty = index => board[index] === null || board[index] === undefined;
         const markCell = (index, player) => {
-            if (board[index] !== null && board[index] !== undefined) return;
-            board[index] = player.getMarkSign().toUpperCase();
+            this.setCell(index, player.getMarkSign.toUpperCase());
         }
 
-        return {getBoard, resetBoard, updateBoard, markCell};
+        return {getBoard, getCell, setCell, isCellEmpty, resetBoard, updateBoard, markCell};
     })();
 
     // DOM Board Cells
