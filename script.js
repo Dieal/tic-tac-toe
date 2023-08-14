@@ -42,7 +42,6 @@ const game = (() => {
     cells.forEach(cell => cell.onclick = e => {
         gameboard.markCell(e.currentTarget.dataset.index, selectedPlayer);
         gameboard.updateBoard();
-        console.log(checkWin());
     });
 
     // Returns: 'X' if x wins, 'O' if o wins, '' if the game hasn't ended, 'draw' if draw
@@ -96,6 +95,11 @@ const game = (() => {
         playerOne = Player("Guest 1", 'X');
         playerTwo = Player("Guest 2", 'O');
         selectedPlayer = playerOne;
+    };
+
+    const restartGame = () => {
+        gameboard.resetBoard();
+        startGame();
     };
 
     return {startGame};
