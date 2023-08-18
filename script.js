@@ -34,10 +34,21 @@ const game = (() => {
         const isCellEmpty = index => board[index] === null || board[index] === undefined;
         const markCell = function (index, player) {
             this.setCell(index, player.getMarkSign().toUpperCase());
+            nextTurn(player);
         }
 
         return {getBoard, getCell, getCellList, setCell, isCellEmpty, resetBoard, updateBoard, markCell};
     })();
+
+    const turnDisplay = document.getElementById("turn");
+    const nextTurn = player => {
+        if (selectedPlayer == null && selectedPlayer === undefined) {
+            selectedPlayer = playerOne;
+        } else {
+            selectedPlayer = player == playerOne ? playerTwo : playerOne;
+        }
+        turnDisplay.textContent = `It's ${selectedPlayer.getPlayerName()}'s turn!`
+    };
 
     // Returns: 'X' if x wins, 'O' if o wins, '' if the game hasn't ended, 'draw' if draw
     const checkWin = () => {
@@ -96,8 +107,8 @@ const game = (() => {
             e.preventDefault();
             const playerOneName = document.getElementById("characterOneName");
             const playerTwoName = document.getElementById("characterTwoName");
-            playerOne = Player(playerOneName, 'X');
-            playerTwo = Player(playerTwo, 'O');
+            playerOne = Player(playerOneName.value, 'X');
+            playerTwo = Player(playerTwoName.value, 'O');
             modal.close();
             startGame();
         });
@@ -105,7 +116,8 @@ const game = (() => {
     };
 
     const startGame = () => {
-        selectedPlayer = playerOne;
+
+        nextTurn();
 
         // DOM Board Cells
         gameboard.getCellList().forEach(cell => cell.onclick = e => {
