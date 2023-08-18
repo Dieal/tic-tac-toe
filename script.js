@@ -24,7 +24,10 @@ const game = (() => {
             board[index] = value;
         }
         const getCellList = () => cells;
-        const resetBoard = () => board = [];
+        const resetBoard = () => {
+            board = [];
+            cells.forEach(cell => cell.textContent = "");
+        };
         const updateBoard = () => {
             for (let i = 0; i < board.length; i++) {
                 if (board[i] === null || board[i] === undefined) continue;
@@ -48,7 +51,41 @@ const game = (() => {
             selectedPlayer = player == playerOne ? playerTwo : playerOne;
         }
         turnDisplay.textContent = `It's ${selectedPlayer.getPlayerName()}'s turn!`
+        displayGameResult(checkWin());
     };
+
+    const resultModal = document.getElementById("result-modal");
+    const resultMessage = document.getElementById("game-result");
+    const displayGameResult = result => {
+        if (!result) return;
+
+        switch (checkWin()) {
+            case 'X':
+                resultMessage.textContent = `${playerOne.getPlayerName()} wins!`
+                break;
+            case 'O':
+                resultMessage.textContent = `${playerTwo.getPlayerName()} wins!`
+                break;
+            case 'draw':
+                resultMessage.textContent = `It's a draw!`
+                break;
+        };
+
+        resultModal.showModal();
+
+    }
+
+    const playAgainButton = document.getElementById("playagain-button");
+    playAgainButton.onclick = () => {
+        startGame();
+        resultModal.close();
+    }
+
+    const characterSelectionButton = document.getElementById("charselection-button");
+    characterSelectionButton.onclick = () => {
+        resultModal.close();
+        characterSelection();
+    }
 
     // Returns: 'X' if x wins, 'O' if o wins, '' if the game hasn't ended, 'draw' if draw
     const checkWin = () => {
@@ -58,8 +95,6 @@ const game = (() => {
 
         // In order to win, there must be at least 4 ticks on the grid.
         if (filteredBoard.length < 5) return '';
-
-        let result = '';
 
         // Check for row wins
         for (let i = 1; i <= 7; i += 3) {
@@ -103,6 +138,7 @@ const game = (() => {
         modal.showModal();
 
         const form = modal.querySelector("form");
+        form.reset();
         form.addEventListener("submit", e => {
             e.preventDefault();
             const playerOneName = document.getElementById("characterOneName");
@@ -117,6 +153,9 @@ const game = (() => {
 
     const startGame = () => {
 
+        selectedPlayer = null;
+        resultMessage.textContent = "";
+        gameboard.resetBoard();
         nextTurn();
 
         // DOM Board Cells
@@ -127,12 +166,7 @@ const game = (() => {
 
     };
 
-    const restartGame = () => {
-        gameboard.resetBoard();
-        startGame();
-    };
-
-    return {characterSelection, restartGame};
+    return {characterSelection};
 })();
 
 

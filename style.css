@@ -18,6 +18,12 @@ body {
     gap: 50px;
 }
 
+button {
+    padding: 1rem 1.5rem;
+    border-radius: 20px;
+    border: 0;
+}
+
 p, h1, h2, h3, h4, h5 {
     margin: 0;
     padding: 0;
@@ -64,12 +70,6 @@ dialog.character-selection {
     font-size: 3rem;
 }
 
-.character-selection button {
-    padding: 1rem 1.5rem;
-    border-radius: 20px;
-    border: 0;
-}
-
 .characters {
     display: flex;
     align-items: center;
@@ -90,7 +90,7 @@ dialog.character-selection {
     padding: 10px;
 }
 
-.buttons {
+.character-selection .buttons {
     margin-top: 30px;
 }
 
@@ -121,4 +121,34 @@ dialog.character-selection {
 
 .character p {
     font-size: 2rem;
+}
+
+/* Result display */
+#result-modal {
+    width: 400px;
+    height: 200px;
+    background-color: #484848;
+    padding: 0;
+    border: 0;
+    border-radius: 10px;
+}
+
+#result-modal > div {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+#result-modal div h1 {
+    color: white;
+}
+
+.result-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
 }
