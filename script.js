@@ -20,7 +20,7 @@ const game = (() => {
         const getBoard = () => [...board];
         const getCell = index => board[index];
         const setCell = (index, value) => {
-            if (board[index] !== null && board[index] !== undefined) return;
+            if (board[index] !== null && board[index] !== undefined) return -1;
             board[index] = value;
         }
         const getCellList = () => cells;
@@ -36,7 +36,7 @@ const game = (() => {
         };
         const isCellEmpty = index => board[index] === null || board[index] === undefined;
         const markCell = function (index, player) {
-            this.setCell(index, player.getMarkSign().toUpperCase());
+            if (this.setCell(index, player.getMarkSign().toUpperCase()) === -1) return;
             nextTurn(player);
         }
 
