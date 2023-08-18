@@ -7,8 +7,42 @@
     <script src="script.js" defer></script>
     <title>Tic Tac Toe</title>
 </head>
-<body>
-    
+<body>    
+
+    <dialog class="character-selection">
+
+        <form class="wrapper">
+            <h1>Select you character!</h1>
+            <div class="characters">
+                <!-- Character One -->
+                <div class="character">
+                    <div class="picture"><img src="svgs/characters/finn.svg"></div>
+                    <input type="text" id="characterOneName" name="characterOneName" required>
+                    <label for="characterOneName">Name</label>
+                    <p>Sign: X</p>
+                    <div class="buttons">
+                        <button type="button">Player</button>
+                        <button type="button">AI</button>
+                    </div>
+                </div>
+                <!-- Character Two -->
+                <div class="character">
+                    <div class="picture"><img src="svgs/characters/jake.svg"></div>
+                    <input type="text" id="characterTwoName" name="characterTwoName" required>
+                    <label for="characterTwoName">Name</label>
+                    <p>Sign: O</p>
+                    <div class="buttons">
+                        <button type="button">Player</button>
+                        <button type="button">AI</button>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit">Start Game</button>
+        <form/>
+
+    </dialog>
+
     <h1>Tic Tac Toe</h1>
 
     <div class="gameboard">

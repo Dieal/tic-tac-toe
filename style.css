@@ -1,3 +1,7 @@
+:root {
+    font-family: sans-serif;
+}
+
 html,
 body {
     margin: 0;
@@ -35,4 +39,86 @@ p, h1, h2, h3, h4, h5 {
     align-items: center;
     font-size: 3rem;
     aspect-ratio: 1;
+}
+
+/* Caracter Selection */
+dialog.character-selection {
+    width: 80%;
+    height: 700px;
+    border: 0;
+    border-radius: 25px;
+    background-color: #484848;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    gap: 30px;
+    height: 100%;
+}
+
+.character-selection h1 {
+    color: white;
+    font-size: 3rem;
+}
+
+.character-selection button {
+    padding: 1rem 1.5rem;
+    border-radius: 20px;
+    border: 0;
+}
+
+.characters {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 60%;
+}
+
+.character {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: white;
+    height: 100%;
+    width: 30%;
+    border-radius: 50px;
+    padding: 10px;
+}
+
+.buttons {
+    margin-top: 30px;
+}
+
+.character .picture {
+    width: 200px;
+    height: 200px;
+}
+
+.picture img {
+    width: 100%;
+    height: 100%;
+}
+
+.character input {
+    border: 0;
+    background-color: #DCDCDC;
+    border-radius: 50px;
+    height: 10%;
+    width: 80%;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.character input:focus {
+    outline: none;
+}
+
+.character p {
+    font-size: 2rem;
 }

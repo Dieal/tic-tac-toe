@@ -12,9 +12,10 @@ const game = (() => {
     let playerOne;
     let playerTwo;
     let selectedPlayer;
-
+    
     const gameboard = (() => {
         let board = [];
+        const cells = document.querySelectorAll(".cell");
 
         const getBoard = () => [...board];
         const getCell = index => board[index];
@@ -22,6 +23,7 @@ const game = (() => {
             if (board[index] !== null && board[index] !== undefined) return;
             board[index] = value;
         }
+        const getCellList = () => cells;
         const resetBoard = () => board = [];
         const updateBoard = () => {
             for (let i = 0; i < board.length; i++) {
@@ -34,15 +36,8 @@ const game = (() => {
             this.setCell(index, player.getMarkSign().toUpperCase());
         }
 
-        return {getBoard, getCell, setCell, isCellEmpty, resetBoard, updateBoard, markCell};
+        return {getBoard, getCell, getCellList, setCell, isCellEmpty, resetBoard, updateBoard, markCell};
     })();
-
-    // DOM Board Cells
-    const cells = document.querySelectorAll(".cell");
-    cells.forEach(cell => cell.onclick = e => {
-        gameboard.markCell(e.currentTarget.dataset.index, selectedPlayer);
-        gameboard.updateBoard();
-    });
 
     // Returns: 'X' if x wins, 'O' if o wins, '' if the game hasn't ended, 'draw' if draw
     const checkWin = () => {
@@ -91,10 +86,33 @@ const game = (() => {
 
     };
         
+    const characterSelection = () => {
+
+        const modal = document.querySelector("dialog.character-selection");
+        modal.showModal();
+
+        const form = modal.querySelector("form");
+        form.addEventListener("submit", e => {
+            e.preventDefault();
+            const playerOneName = document.getElementById("characterOneName");
+            const playerTwoName = document.getElementById("characterTwoName");
+            playerOne = Player(playerOneName, 'X');
+            playerTwo = Player(playerTwo, 'O');
+            modal.close();
+            startGame();
+        });
+
+    };
+
     const startGame = () => {
-        playerOne = Player("Guest 1", 'X');
-        playerTwo = Player("Guest 2", 'O');
         selectedPlayer = playerOne;
+
+        // DOM Board Cells
+        gameboard.getCellList().forEach(cell => cell.onclick = e => {
+            gameboard.markCell(e.currentTarget.dataset.index, selectedPlayer);
+            gameboard.updateBoard();
+        });
+
     };
 
     const restartGame = () => {
@@ -102,9 +120,9 @@ const game = (() => {
         startGame();
     };
 
-    return {startGame};
+    return {characterSelection, restartGame};
 })();
 
 
 // Main flow
-game.startGame();
+game.characterSelection();
